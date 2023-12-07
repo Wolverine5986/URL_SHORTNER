@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <title>URL Shortener</title>
+
+    <style>
+        body{
+            background-color: #1e2e39;
+        }
+
+        .dot {
+            height: 30px;
+            width: 30px;
+            background-color: rgb(240, 63, 63);
+            border-radius: 50%;
+            display: inline-block;
+            }
+        .dot1 {
+            height: 30px;
+            width: 30px;
+            background-color: rgb(54, 223, 54);
+            border-radius: 50%;
+            display: inline-block;
+            }
+        .dot2 {
+            height: 30px;
+            width: 30px;
+            background-color: rgb(229, 229, 8);
+            border-radius: 50%;
+            display: inline-block;
+            }
+  
+    .container{
+        margin-top: 100px;
+        width: 500px;
+        border: none;
+    }
+    
+    .input-url{
+        height: 50px;
+        color: black;
+        box-shadow: inset #f1f2f5 0 0 0 2px;
+                    border: none;
+                    background: white;
+                    appearance: none;
+                    width:80%;
+                    height: 50px;
+                    position: relative;
+                    border-radius: 3px;
+                    padding: 9px 12px;
+                    line-height: 1.4;
+                    color: rgb(251, 243, 243);
+                    font-size: 16px;
+                    font-weight: 400;
+                    height: 40px;
+                    transition: all .2s ease;
+        
+                
+    }
+    </style>
+</head>
+<body>
+
+
+    <!--Nav bar Design  -->
+    <nav class="navbar navbar-light bg-dark">
+        <a class="navbar-brand"><span class="dot"></span> <span class="dot1"></span> <span class="dot2"></span></a>
+        <center>
+        <a href="" class="navbar-brand"><input readonly class="form-control mr-sm-2" type="search" style="width: 600px; margin-left: 150px;" aria-label="Search"></a></center>
+        <form class="form-inline">
+          <!-- <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">-->
+          <!-- <button class="b1" style="border-radius: 15px;background: none;">Welcome</button> -->
+        </form>
+        <a class="navbar-brand"><span class="dot" style="background-color:rgb(229, 229, 8);"></span> <span class="dot1"></span> <span class="dot2" style="background-color: rgb(240, 63, 63);"></span></a>
+      </nav>
+    <!-- Complte Navbar -->
+
+    <!-- Form for input url -->
+    <center>
+    <form action="{{url_for('user.url_shortner')}}" method="POST" class="container">
+        <input type="text" class="input-url" placeholder="Paste URL" name="input_url" style="color: black;"> <br><br>
+        <button type="submit" class="btn btn-dark" style="width: 50%; height: 50px;">Short</button>
+        <br><br><br>
+        
+    </form>
+    <h1 style="color: white;" id="Display_url"></h1>
+    {% if  url  %}
+        <a href="" onclick="copyToClipboard(url1)"><i class="fa fa-copy" style="font-size:24px;color: white;"></i></a>
+    {% else %}
+    <a href=""></a>
+    {% endif %}
+</center>
+</body>
+
+<script>
+    var url1 = '{{ url }}';
+    document.querySelector('#Display_url').innerText = url1;
+
+
+    function copyToClipboard(text) {
+    // Create a temporary textarea element
+    const textarea = document.createElement('textarea');
+    textarea.value = url1;
+
+    // Append the textarea to the DOM
+    document.body.appendChild(textarea);
+
+    // Select the text in the textarea
+    textarea.select();
+    textarea.setSelectionRange(0, 99999); // For mobile devices
+
+    // Copy the selected text to the clipboard
+    document.execCommand('copy');
+
+    // Remove the temporary textarea
+    document.body.removeChild(textarea);
+
+    // Optionally, provide user feedback
+    alert('Text copied to clipboard: ' + text);
+}
+</script>
+</html>
